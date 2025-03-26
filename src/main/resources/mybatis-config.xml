@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--    导入外部配置文件内容-->
+    <properties resource="jdbc.properties"/>
+    <settings>
+        <!--        开启驼峰映射前提是java类和数据表字段名都符合规范：小驼峰、全小写加下划线分割-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--    开启类型别名，可以使用类名简写-->
+    <typeAliases>
+        <package name="com.learn.pojo"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <!--            配置数据源的基本信息-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--    设定mapper接口的位置-->
+    <mappers>
+        <package name="com.learn.mapper"/>
+    </mappers>
+</configuration>
