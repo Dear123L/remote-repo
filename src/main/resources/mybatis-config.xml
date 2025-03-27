@@ -27,6 +27,6 @@
     </environments>
     <!--    设定mapper接口的位置-->
     <mappers>
-        <package name="com.learn.mapper"/>
+        <mapper resource="com/learn/mapper/UserMapper.xml"/>
     </mappers>
 </configuration>
