@@ -17,7 +17,7 @@
     </insert>
 
     <update id="updateUser">
-        update mybatis.User set password = #{password} where id = #{id};
+        update learn_mybatis set password = #{password} where id = #{id};
     </update>
 
     <delete id="deleteUserById">
