@@ -1,0 +1,68 @@
+# 食验室使用
+
+### 选用持久层
+
+#### **JPA+MyBatis方案**
+
+![image-20250329153710206](.assets/image-20250329153710206.png)
+
+![image-20250329152559625](.assets/image-20250329152559625.png)
+
+![image-20250329152614971](.assets/image-20250329152614971.png)
+
+#### 1.分层目录
+
+```
+src/
+├── main/
+│   ├── java/
+│   │   ├── com.foodsystem/
+│   │   │   ├── config/           # 配置类
+│   │   │   │   ├── JpaConfig.java       # JPA配置
+│   │   │   │   ├── MyBatisConfig.java   # MyBatis配置
+│   │   │   │   └── TransactionConfig.java # 事务配置
+│   │   │   │
+│   │   │   ├── controller/       # 控制层（REST API）
+│   │   │   │
+│   │   │   ├── service/          # 业务逻辑层
+│   │   │   │   ├── impl/         # 服务实现
+│   │   │   │
+│   │   │   ├── entity/           # 【JPA专属】实体类
+│   │   │   │   ├── User.java
+│   │   │   │   ├── Recipe.java
+│   │   │   │   └── ...
+│   │   │   │
+│   │   │   ├── repository/       # 【JPA专属】仓库接口
+│   │   │   │   ├── UserRepository.java
+│   │   │   │   ├── RecipeRepository.java
+│   │   │   │   └── ...
+│   │   │   │
+│   │   │   ├── dao/              # 【MyBatis专属】Mapper接口
+│   │   │   │   ├── NutritionAnalysisMapper.java
+│   │   │   │   ├── RecommendationMapper.java
+│   │   │   │   └── ...
+│   │   │   │
+│   │   │   ├── dto/              # 数据传输对象
+│   │   │   │
+│   │   │   └── util/             # 工具类
+│   │   │
+│   ├── resources/
+│   │   ├── mapper/               # 【MyBatis专属】XML映射文件
+│   │   │   ├── NutritionAnalysisMapper.xml
+│   │   │   └── ...
+│   │   ├── static/              # 静态资源
+│   │   └── application.yml      # 配置文件
+│
+└── test/                        # 测试代码
+```
+
+#### **2. 各层技术栈说明**
+
+| **层级**      | **技术组件**           | **JPA职责**               | **MyBatis职责**         |
+| :------------ | :--------------------- | :------------------------ | :---------------------- |
+| **实体层**    | `entity/`              | 定义带`@Entity`注解的类   | 无                      |
+| **持久层**    | `repository/` + `dao/` | 继承`JpaRepository`的接口 | Mapper接口（`@Mapper`） |
+| **SQL实现层** | `resources/mapper/`    | 无                        | XML映射文件             |
+| **业务层**    | `service/`             | 调用JPA仓库               | 调用MyBatis Mapper      |
+| **控制层**    | `controller/`          | 接收请求，协调Service     | 同左                    |
+| **配置层**    | `config/`              | `JpaConfig`               | `MyBatisConfig`         |
